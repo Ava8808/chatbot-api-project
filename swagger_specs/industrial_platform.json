@@ -1,0 +1,122 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Industrial Tool Platform API",
+    "version": "1.0.0",
+    "description": "API for managing tools, repairs, staff, and tasks in an industrial tool company"
+  },
+  "paths": {
+    "/tools": {
+      "post": {
+        "summary": "Register a new tool model",
+        "description": "Add a new drill, grinder or screwdriver to the catalog",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "type", "power_rating"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "type": {
+                    "type": "string",
+                    "enum": ["drill", "grinder", "screwdriver"]
+                  },
+                  "power_rating": {
+                    "type": "string",
+                    "example": "500W"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Tool registered successfully" }
+        }
+      }
+    },
+    "/repairs": {
+      "post": {
+        "summary": "Log a repair case",
+        "description": "Create a repair ticket for a broken or returned tool",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["tool_id", "issue", "reported_by"],
+                "properties": {
+                  "tool_id": { "type": "string" },
+                  "issue": { "type": "string" },
+                  "reported_by": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Repair case created" }
+        }
+      }
+    },
+    "/staff": {
+      "post": {
+        "summary": "Register a technician",
+        "description": "Add a new technical staff member",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "role", "phone"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "role": { "type": "string" },
+                  "phone": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Staff registered" }
+        }
+      }
+    },
+    "/tasks": {
+      "post": {
+        "summary": "Assign a task to a technician",
+        "description": "Create a new task and assign it to a staff member",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["staff_id", "task_description", "due_date"],
+                "properties": {
+                  "staff_id": { "type": "string" },
+                  "task_description": { "type": "string" },
+                  "due_date": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Task assigned" }
+        }
+      }
+    }
+  }
+}
+
+
+
