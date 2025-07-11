@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# محیط مجازی
+myvenv/
+# ENV/
+# env/
+# env.bak/
+# venv.bak/
+
+
+# فایل‌های لاگ
+*.log
+
+# فایل تنظیمات IDE و ادیتورها
+.vscode/
+.idea/
+
+# فایل‌های تست پوشش کد
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# فایل‌های بسته‌بندی و توزیع
+dist/
+build/
+*.egg-info/
+
+# سایر فایل‌های موقتی
+*.swp
+*.swo

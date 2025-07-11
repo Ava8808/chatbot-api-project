@@ -1,3 +1,4 @@
+
 # Swagger API Chatbot
 
 A Python & FastAPI based chatbot that reads Swagger (OpenAPI) JSON specs and interacts with users  
@@ -70,5 +71,6 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ## Contact
 
-Your Name - your.email@example.com  
+Your Ava Iranpour - a.iranpour8808.nia@gmail.com 
 Project Link: https://github.com/yourusername/swagger-api-chatbot
+
