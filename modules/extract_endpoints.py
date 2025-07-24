@@ -1,39 +1,61 @@
-import json
+# modules/extract_endpoints.py
 
-def extract_endpoints_from_swagger(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        swagger_data = json.load(f)
-
+def extract_endpoints(swagger_data):
+    endpoints = []
     paths = swagger_data.get("paths", {})
-    if not paths:
-        print("No endpoints found in Swagger file.")
-        return
-
-    print("✅ Extracted Endpoints:\n")
-
-    for endpoint, methods in paths.items():
-        print(f"📌 Endpoint: {endpoint}")
+    for path, methods in paths.items():
         for method, details in methods.items():
-            print(f"  └ Method: {method.upper()}")
-            print(f"     Summary: {details.get('summary')}")
-            print(f"     Description: {details.get('description')}")
-            request_body = details.get("requestBody", {})
-            if request_body:
-                content = request_body.get("content", {})
-                json_schema = content.get("application/json", {}).get("schema", {})
-                required_fields = json_schema.get("required", [])
-                props = json_schema.get("properties", {})
-                print("     Required fields:")
-                for field in required_fields:
-                    field_info = props.get(field, {})
-                    field_type = field_info.get("type", "unknown")
-                    print(f"       - {field}: {field_type}")
-            else:
-                print("     No request body required.")
-        print("")
+            summary = details.get("summary", "")
+            description = details.get("description", "")
+            endpoints.append({
+                "path": path,
+                "method": method.upper(),
+                "summary": summary,
+                "description": description
+            })
+    return endpoints
 
-if __name__ == "__main__":
-    extract_endpoints_from_swagger("swagger_specs/industrial_platform.json")
+
+
+
+
+#############################
+# import json
+
+# def extract_endpoints(filepath):
+#     with open(filepath, "r", encoding="utf-8") as f:
+#         swagger_data = json.load(f)
+
+#     paths = swagger_data.get("paths", {})
+#     if not paths:
+#         print("No endpoints found in Swagger file.")
+#         return
+
+#     print("✅ Extracted Endpoints:\n")
+
+#     for endpoint, methods in paths.items():
+#         print(f"📌 Endpoint: {endpoint}")
+#         for method, details in methods.items():
+#             print(f"  └ Method: {method.upper()}")
+#             print(f"     Summary: {details.get('summary')}")
+#             print(f"     Description: {details.get('description')}")
+#             request_body = details.get("requestBody", {})
+#             if request_body:
+#                 content = request_body.get("content", {})
+#                 json_schema = content.get("application/json", {}).get("schema", {})
+#                 required_fields = json_schema.get("required", [])
+#                 props = json_schema.get("properties", {})
+#                 print("     Required fields:")
+#                 for field in required_fields:
+#                     field_info = props.get(field, {})
+#                     field_type = field_info.get("type", "unknown")
+#                     print(f"       - {field}: {field_type}")
+#             else:
+#                 print("     No request body required.")
+#         print("")
+
+# if __name__ == "__main__":
+#     extract_endpoints("swagger_specs/industrial_platform.json")
 
 
 
